@@ -74,6 +74,24 @@ footer{
   background-color:#000000;
 }
 
+header{
+  position: fixed;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #000000;
+  width:100vw;
+  padding: 0 10px;
+  border: solid #ffffff;
+  border-radius: 5px;
+}
+
+.headerItem{
+  padding:5px;
+  max-height:30px;
+}
+
 .mainContent{
   z-index: 0;
   /* min-height: 100vh; */
