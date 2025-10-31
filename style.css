@@ -1,0 +1,108 @@
+/* Calling the font from files*/
+@font-face {
+  font-family: Terminal10;
+  src: url(assets/Terminal10.otf);
+}
+
+/* Setting the main stuff for the website such as font, background colour and overflow */
+*{
+  font-family: 'Terminal10';
+   background-color: #000000;
+   font-size: 24px;
+
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  /* width: 100vw;
+  height:100vh; */
+}
+
+body{
+  overflow:scroll;
+}
+
+canvas {
+  display: block;
+}
+
+/* Settting the properties of the input field */
+input{
+  background-color: black;
+  /* This sets the colour of the text in the text being typed */
+  color:#00ff00;
+  /* Border stuff */
+  border: solid white;
+  border-radius: 5px;
+  /* Makes sure that the input field is a minimum of 50% of the container size */
+  min-width: 50%;
+
+  /* Prevents the blue outline around the input field */
+  outline:none;
+  /* Sets the growth of the input field to at least twice as big as the other items in the container */
+  flex-grow: 2;
+  /* For the inside text */
+  padding-left: 10px;
+  margin-left: 5px;
+}
+
+button{
+  border: solid #00ff00;
+  background-color: #00ff00;
+  border-radius: 5px;
+  padding:0;
+  min-width: 50px;
+  margin:0 5px;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+p{
+  color: #00ff00;
+}
+
+footer{
+  position:fixed;
+  bottom:0;
+  width:100vw;
+  height:36px;
+  z-index: 9;
+  background-color:#000000;
+}
+
+.mainContent{
+  z-index: 0;
+  /* min-height: 100vh; */
+}
+
+.mainTxt{
+  padding:16px;
+  overflow-wrap: break-word;
+}
+
+/* The container which houses the text field and the button */
+.inputField{
+  /* Flex box stuff */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  /* align-items: center; */
+  gap:5px;
+  padding-bottom:5px;
+
+}
+
+@media only screen and (max-width: 600px) {
+  footer{
+    padding-bottom: 16px;
+  }
+
+  .mainContent{
+    padding-bottom: 32px;
+  }
+
+}

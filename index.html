@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>T-10 Remake</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+  
+    <div class="mainContent">
+      <div class="mainTxt">
+         <p id="content">> Awaiting input</p>
+      </div>
+      <footer id="bottomInput">
+      <form class="inputField">
+          <input type="text" id="txtInput" placeholder="enter command" enterkeyhint="go"></input>
+          <button type="submit" id="enterButton" onclick="changeTxt()">></button>
+      </form>
+    </footer>
+    </div>
+    
+    
+    <script src="sketch.js"></script>
+  </body>
+</html>
+
+
+<!-- onkeydown="checkKey()" -->
