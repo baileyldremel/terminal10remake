@@ -66,16 +66,16 @@ p{
 }
 
 footer{
-  position:fixed;
+  /* position:fixed; */
   bottom:0;
   width:100vw;
   height:36px;
-  z-index: 9;
   background-color:#000000;
+  border: solid pink;
 }
 
 header{
-  position: fixed;
+  /* position: fixed; */
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
@@ -83,8 +83,9 @@ header{
   background-color: #000000;
   width:100vw;
   padding: 0 10px;
-  border: solid #ffffff;
+  border: solid green;
   border-radius: 5px;
+  z-index: 0;
 }
 
 .headerItem{
@@ -93,7 +94,9 @@ header{
 }
 
 .mainContent{
-  z-index: 0;
+  border: solid orange;
+  flex-grow: 10;
+  overflow: scroll;
   /* min-height: 100vh; */
 }
 
@@ -108,9 +111,20 @@ header{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  /* align-items: center; */
   gap:5px;
   padding-bottom:5px;
+
+}
+
+.content{
+  width:100vw;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  border: solid red;
+  overflow:hidden;
+  background-color: grey;
+
 
 }
 
