@@ -71,7 +71,6 @@ footer{
   width:100vw;
   height:36px;
   background-color:#000000;
-  border: solid pink;
 }
 
 header{
@@ -83,7 +82,7 @@ header{
   background-color: #000000;
   width:100vw;
   padding: 0 10px;
-  border: solid green;
+  border: solid #ffffff;
   border-radius: 5px;
   z-index: 0;
 }
@@ -94,10 +93,9 @@ header{
 }
 
 .mainContent{
-  border: solid orange;
   flex-grow: 10;
   overflow: scroll;
-  /* min-height: 100vh; */
+
 }
 
 .mainTxt{
@@ -121,11 +119,7 @@ header{
   height:100vh;
   display: flex;
   flex-direction: column;
-  border: solid red;
   overflow:hidden;
-  background-color: grey;
-
-
 }
 
 @media only screen and (max-width: 600px) {
