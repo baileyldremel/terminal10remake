@@ -17,6 +17,8 @@ if(window.matchMedia("(any-hover:none)").matches){
 
 function setup() {
 
+  noCanvas();
+
   txtInput.focus();
 
   startingHeight = html.scrollHeight;
