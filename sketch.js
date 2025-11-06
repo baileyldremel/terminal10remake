@@ -155,7 +155,7 @@ txtInput.addEventListener('click', ()=> {
 
 txtInput.addEventListener('blur', ()=>{
   if(isMobile){
-    bottomInput.style.position = 'fixed';
+    bottomInput.style.position = 'static';
     bottomInput.style.bottom = '0';
     bottomInput.style.background = "#000000";
 
