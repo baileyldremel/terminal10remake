@@ -1,12 +1,7 @@
 const txtInput = document.getElementById('txtInput');
 const content = document.getElementById('content');
-const bottomInput = document.getElementById('bottomInput');
-const buttonInput = document.getElementById('enterButton');
-const inputField = document.getElementById('inputField');
-const bodyElement = document.body;
-const html = document.documentElement;
+const mainContentBox = document.getElementById('mainContentBox');
 let input;
-let startingHeight, currentHeight, keyboardHeight;
 let isMobile = false;
 
 //This bit of code checks to see if the browser cannot do hover functions, meaning it's a mobile browser
@@ -21,31 +16,16 @@ function setup() {
 
   txtInput.focus();
 
-  startingHeight = html.scrollHeight;
-  keyboardHeight = round(html.scrollHeight*0.66);
-  console.log(keyboardHeight);
-
-  keyboardHeight = round(html.scrollHeight*0.66)+'px';
-
-
   //This gets the height of the page from load. Only really used for mobile.
  
 
 }
 
-// function draw(){
-      
-//   currentHeight = html.scrollHeight;
-     
-//   if (currentHeight != startingHeight){
-//     keyboardHeight = keyboardHeight-(currentHeight-startingHeight);
-//       startingHeight = currentHeight; 
-//   }
+//This does nothing at the moment
 
-//   console.log('S=',startingHeight,' K=',keyboardHeight, ' C=',currentHeight);
-//   console.log('Draw');
-
-// }
+function draw(){
+    
+}
 
 //As we are using form, we want to prevent the default action of submitting the form so we can do other things.
 document.querySelector('form').addEventListener('submit', ()=>{
@@ -61,12 +41,6 @@ function changeTxt(){
   //Gets the text that was inputted into the input box
   input = txtInput.value;
 
-  //If the user is on mobile, we move the input bar back to the bottom of the page.
-  if(isMobile){
-    bottomInput.style.position = 'fixed';
-    bottomInput.style.bottom = "0";
-  }
-  
   //If the browser is not a mobile device, we focus back on the keyboard so the user can type again
   if(!isMobile){
     txtInput.focus();
@@ -108,56 +82,21 @@ Etiam rutrum in urna a ultricies. Aliquam malesuada, tellus ut pulvinar porttito
   }
 }
 
-// function getHeights(){
-
-//   currentHeight = html.scrollHeight;
-
-//   if(startingHeight == undefined){
-//     startingHeight = currentHeight;
-//     console.log(startingHeight);
-//   }
-
-//   if (currentHeight != startingHeight){
-//     console.log(currentHeight);
-//     console.log(startingHeight);
-//     startingHeight = currentHeight;
-//   }else{
-//     startingHeight = currentHeight;
-//   }
-// }
-
-
-
-
-//When the keyboard is in focus, we bove the bottom input bar 50% up the page
+//When the keyboard on the mobile screen is active, we make a slight adjustment to the mainContent box.
 
 txtInput.addEventListener('click', ()=> {
   
-  keyboardHeight = Math.round(html.scrollHeight*0.66);
   if(isMobile){
-    
-    // getHeights();
-    // currentHeight = html.scrollHeight;
-    // if (currentHeight != startingHeight){
-    //   let test = startingHeight-currentHeight
-    //   console.log(currentHeight);
-    //   console.log(startingHeight);
-    //   startingHeight = currentHeight;
-    // }
+    mainContentBox.style.maxHeight = "calc(100% - 140px)";
     txtInput.focus();
-    bottomInput.style.position = 'absolute';
-    bottomInput.style.bottom = "66%";
-    // bottomInput.style.bottom = keyboardHeight+'px';
-    bottomInput.style.background = "none";
+    //For testing only
     console.log('Click');
   }
 })
 
 txtInput.addEventListener('blur', ()=>{
   if(isMobile){
-    bottomInput.style.position = 'static';
-    bottomInput.style.bottom = '0';
-    bottomInput.style.background = "#000000";
-
+    //With no value, this resets to the default in the CSS.
+    mainContentBox.style.maxHeight = "";
   }
 })

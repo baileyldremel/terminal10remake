@@ -96,6 +96,7 @@ header{
 .mainContent{
   flex-grow: 10;
   overflow: scroll;
+  max-height:calc(100% - 84px);
 
 }
 
@@ -124,15 +125,14 @@ header{
 }
 
 @media only screen and (max-width: 600px) {
+
+  /* Buffer for the bottom of the screen */
   footer{
-    /* Using this will calculate the safe area at the bottom of the screen */
     padding-bottom: 16px;
-    /* bottom: calc(env(safe-area-inset-bottom)+16px); */
-    /* padding-bottom: calc(env(safe-area-inset-bottom)+32px); */
   }
 
   .mainContent{
-    padding-bottom: 32px;
+    max-height:calc(100% - 195px);
   }
 
 }
