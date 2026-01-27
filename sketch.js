@@ -6,7 +6,7 @@ let isMobile = false;
 let isNewText = false;
 let textSplitIntoWords = [];
 let textToChange, previousText;
-
+let remainingWords = 0;
 let currentWordCount = 0;
 
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
@@ -72,6 +72,26 @@ document.querySelector('form').addEventListener('submit', ()=>{
 
 
 function changeTxt(){
+  
+  //This is a failsafe in case the user enters something into the text box before all the text has been written.
+  //This will just print the remaining words left.
+  if(isNewText){
+    
+    //Checks how many words are remain by subtracting the current word count from the length
+    remainingWords = textSplitIntoWords.length - currentWordCount;
+    
+    //Loops through until all the words are printed
+    for(i = 0; i<remainingWords; i++){
+      content.innerHTML = previousText + ' ' + textSplitIntoWords[i+currentWordCount];
+      previousText = content.innerHTML;
+    }
+    
+    //Resets all the variables back to what would happen when the text was fully written.
+    currentWordCount = 0;
+    textSplitIntoWords = '';
+    isNewText = false;
+  }
+
   //Gets the text that was inputted into the input box
   input = txtInput.value;
   
