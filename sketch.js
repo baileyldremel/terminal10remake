@@ -9,6 +9,8 @@ let textToChange, previousText;
 let remainingWords = 0;
 let currentWordCount = 0;
 
+let wordSpeed = 2;
+
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
 Nunc finibus nec lectus in cursus. Quisque at nibh eu sem efficitur vestibulum eu in tellus. Morbi eget ligula quam. Ut bibendum interdum nunc, nec varius nibh malesuada ac. Proin tortor eros, commodo vitae nunc a, blandit finibus felis. Maecenas ipsum ex, lacinia eget leo eu, sollicitudin vulputate libero. Duis porttitor id nibh sed egestas. Phasellus ultrices ut erat non placerat. Integer arcu nisl, porttitor ac ante sit amet, efficitur ultrices mi. Nullam tincidunt cursus varius. Duis eleifend varius ipsum et consequat. Donec et est id justo tempus semper eu eu libero.
 Mauris porta vestibulum tincidunt. Vestibulum porttitor dapibus neque ut imperdiet. Nulla lectus ligula, scelerisque non dignissim ut, eleifend sed elit. In sodales sagittis ullamcorper. Fusce nec tortor laoreet, volutpat sem in, eleifend erat. Sed vel libero tellus. Vestibulum id tristique neque, nec vulputate enim. Cras vel mollis felis. Nullam ut aliquam turpis. Ut id turpis laoreet, congue lectus nec, dictum urna. Proin malesuada nisi vitae mi pretium mollis. Nunc fermentum ipsum ex, eu vulputate ante blandit quis. Cras blandit faucibus mi non aliquet. Nunc et justo faucibus, sollicitudin tortor rutrum, gravida turpis.
@@ -52,7 +54,7 @@ function draw(){
     //Checks if the current word count is not the same as the amount of words in the text
     if(currentWordCount != textSplitIntoWords.length){
 
-      if (frameCount>2*currentWordCount){
+      if (frameCount>wordSpeed*currentWordCount){
         content.innerHTML = previousText + ' ' + textSplitIntoWords[currentWordCount];
         currentWordCount++;
       }
