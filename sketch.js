@@ -31,6 +31,13 @@ function draw(){
 
   background(0);
 
+  if(isOverflow(mainContentBox)){
+    mainContentBox.style.flexDirection = 'column-reverse';
+  }
+
+  if(!isOverflow(mainContentBox)){
+    mainContentBox.style.flexDirection = 'column';
+  }
   if(isNewText){
 
     //This checks if there is anything in the split text variable. If not, then we split the text
@@ -182,3 +189,7 @@ txtInput.addEventListener('blur', ()=>{
     mainContentBox.style.maxHeight = "";
   }
 })
+
+function isOverflow(x){
+  return x.scrollHeight > x.clientHeight;
+}
