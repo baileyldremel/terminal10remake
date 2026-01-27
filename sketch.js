@@ -162,7 +162,10 @@ function checkCommand(txt) {
   if(txt == 'Hello'){
     textToChange = 'Hi'
   }
-  else{
+  else if(txt == 'Clear'){
+    content.innerHTML = '';
+    isNewText = false;
+  }else{
     //This is mainly for testing long passages of text
 
     // content.innerHTML = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.`
