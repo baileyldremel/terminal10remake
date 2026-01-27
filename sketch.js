@@ -1,6 +1,7 @@
 const txtInput = document.getElementById('txtInput');
 const content = document.getElementById('content');
 const mainContentBox = document.getElementById('mainContentBox');
+const commandsList = ['HELLO', 'CLEAR', 'SAMPLE'];
 let input;
 let isMobile = false;
 let isNewText = false;
