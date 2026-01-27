@@ -30,7 +30,7 @@ function setup() {
 function draw(){
 
   background(0);
-
+  
   if(isOverflow(mainContentBox)){
     mainContentBox.style.flexDirection = 'column-reverse';
   }
@@ -70,7 +70,6 @@ function draw(){
 
 //As we are using form, we want to prevent the default action of submitting the form so we can do other things.
 document.querySelector('form').addEventListener('submit', ()=>{
-  console.log('Preventing default...');
   event.preventDefault();
   if(isMobile){
     txtInput.blur();
@@ -117,7 +116,6 @@ function changeTxt(){
     checkCommand(input);
     
     // For testing
-    console.log('New Text');
   }else{
     //If blank, prompt user to enter text
     content.innerHTML = content.innerHTML + '<br>';
