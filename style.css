@@ -93,7 +93,7 @@ header{
 
 .mainContent{
   flex-grow: 10;
-  overflow: scroll;
+  overflow-y: scroll;
   max-height:calc(100% - 84px);
 
 }
