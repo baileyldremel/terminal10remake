@@ -28,7 +28,7 @@ function setup() {
 }
 
 function draw(){
-    
+
   background(0);
 
   if(isNewText){
@@ -74,7 +74,7 @@ document.querySelector('form').addEventListener('submit', ()=>{
 function changeTxt(){
   //Gets the text that was inputted into the input box
   input = txtInput.value;
-
+  
   isNewText = true;
   frameCount = 0;
 
