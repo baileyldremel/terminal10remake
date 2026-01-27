@@ -18,15 +18,9 @@ if(window.matchMedia("(any-hover:none)").matches){
 function setup() {
 
   noCanvas();
-
   txtInput.focus();
 
-  //This gets the height of the page from load. Only really used for mobile.
- 
-
 }
-
-//This does nothing at the moment
 
 function draw(){
     
