@@ -9,6 +9,8 @@ let textToChange, previousText;
 let remainingWords = 0;
 let currentWordCount = 0;
 
+let execute = false;
+
 let wordSpeed = 2;
 
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
@@ -162,18 +164,20 @@ function formatText(txt) {
 
 function checkCommand(txt) {
 
-  if(txt == 'HELLO'){
-    textToChange = 'Hi'
+  console.log(txt);
+  execute = false;
+
+  for(i=0; i<commandsList.length; i++){
+    console.log('Checking for: '+ commandsList[i]);
+    if(commandsList[i] == txt){
+      let currentFunction=commandsList[i];
+      this[currentFunction]();
+      execute = true;
+      break;
+    }
   }
-  else if(txt == 'CLEAR'){
-    content.innerHTML = '';
-    isNewText = false;
-  }else{
-    //This is mainly for testing long passages of text
-
-    // content.innerHTML = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.`
-
-    textToChange = veryLongText;
+  if(!execute){
+    textToChange = 'No command found, please try again';
   }
 }
 
@@ -199,4 +203,22 @@ txtInput.addEventListener('blur', ()=>{
 //This checks to see if there is overflow in the main content and returns either true or false.
 function isOverflow(x){
   return x.scrollHeight > x.clientHeight;
+}
+
+//----//
+
+//These are the list of commands available. There's probably an easier way of doing this.
+
+function HELLO(){
+  console.log('Testing Command');
+  textToChange = "Hi";
+}
+
+function SAMPLE(){
+  textToChange = veryLongText;
+}
+
+function CLEAR(){
+  content.innerHTML = '';
+  isNewText = false;
 }
