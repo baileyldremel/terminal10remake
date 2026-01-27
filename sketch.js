@@ -3,6 +3,11 @@ const content = document.getElementById('content');
 const mainContentBox = document.getElementById('mainContentBox');
 let input;
 let isMobile = false;
+let isNewText = false;
+let textSplitIntoWords = [];
+let textToChange, previousText;
+
+let currentWordCount = 0;
 
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
 Nunc finibus nec lectus in cursus. Quisque at nibh eu sem efficitur vestibulum eu in tellus. Morbi eget ligula quam. Ut bibendum interdum nunc, nec varius nibh malesuada ac. Proin tortor eros, commodo vitae nunc a, blandit finibus felis. Maecenas ipsum ex, lacinia eget leo eu, sollicitudin vulputate libero. Duis porttitor id nibh sed egestas. Phasellus ultrices ut erat non placerat. Integer arcu nisl, porttitor ac ante sit amet, efficitur ultrices mi. Nullam tincidunt cursus varius. Duis eleifend varius ipsum et consequat. Donec et est id justo tempus semper eu eu libero.
@@ -24,6 +29,36 @@ function setup() {
 
 function draw(){
     
+  background(0);
+
+  if(isNewText){
+
+    //This checks if there is anything in the split text variable. If not, then we split the text
+    if(textSplitIntoWords == ''){
+      //Pushing the formatting into it's own function.
+      textSplitIntoWords = formatText(textToChange);
+    }
+    
+    //Grabbing the previous text before we make any changes.
+    previousText = content.innerHTML;
+
+    //Checks if the current word count is not the same as the amount of words in the text
+    if(currentWordCount != textSplitIntoWords.length){
+
+      if (frameCount>2*currentWordCount){
+        content.innerHTML = previousText + ' ' + textSplitIntoWords[currentWordCount];
+        currentWordCount++;
+      }
+
+    }else{
+
+      console.log('Finished');
+      currentWordCount = 0;
+      textSplitIntoWords = '';
+      isNewText = false;
+
+    }
+  } 
 }
 
 //As we are using form, we want to prevent the default action of submitting the form so we can do other things.
@@ -40,6 +75,9 @@ function changeTxt(){
   //Gets the text that was inputted into the input box
   input = txtInput.value;
 
+  isNewText = true;
+  frameCount = 0;
+
   //If the browser is not a mobile device, we focus back on the keyboard so the user can type again
   if(!isMobile){
     txtInput.focus();
@@ -47,7 +85,7 @@ function changeTxt(){
   
   //Checks to see if there is anything in the input, if not then it doesn't do anything
   if(input != ''){
-
+    content.innerHTML = content.innerHTML + '<br>> ' + input + '<br>';
     //This takes the input and sends it to the check input function 
     checkCommand(input);
     
@@ -55,7 +93,8 @@ function changeTxt(){
     console.log('New Text');
   }else{
     //If blank, prompt user to enter text
-    content.innerHTML = 'Please enter text to continue'
+    content.innerHTML = content.innerHTML + '<br>';
+    textToChange = 'ERROR: Please enter text to continue'
   }
 
   //Reset the text value inside the input box to nothing
@@ -63,17 +102,45 @@ function changeTxt(){
 }
 
 
+//Making a function that formats the text to be displayed
+function formatText(txt) {
+
+  let unformattedText = txt;
+  let lines = unformattedText.split('\n');
+  let linesText = '';
+  let formattedText = [];
+
+  // console.log(lines);
+  
+  //Adding line breaks so that the text isn't just a single block.
+  if(lines.length != 1){
+    for (i = 0; i<lines.length; i++){
+      if(i != lines.length-1){
+        lines[i] = lines[i] + '<br>';
+        linesText = linesText + lines[i];
+      }else{
+        linesText = linesText + lines[i];
+      }
+    }
+  }else{
+    linesText = txt;
+  }
+
+  formattedText = linesText.split(' ');
+  return formattedText;
+}
+
 function checkCommand(txt) {
 
   if(txt == 'Hello'){
-    content.innerHTML = 'Hi'
+    textToChange = 'Hi'
   }
   else{
     //This is mainly for testing long passages of text
 
     // content.innerHTML = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.`
 
-    content.innerHTML = veryLongText;
+    textToChange = veryLongText;
   }
 }
 
