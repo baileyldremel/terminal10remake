@@ -115,6 +115,7 @@ function changeTxt(){
   if(input != ''){
     content.innerHTML = content.innerHTML + '<br>> ' + input + '<br>';
     //This takes the input and sends it to the check input function 
+    input = input.toUpperCase();
     checkCommand(input);
     
     // For testing
@@ -159,10 +160,10 @@ function formatText(txt) {
 
 function checkCommand(txt) {
 
-  if(txt == 'Hello'){
+  if(txt == 'HELLO'){
     textToChange = 'Hi'
   }
-  else if(txt == 'Clear'){
+  else if(txt == 'CLEAR'){
     content.innerHTML = '';
     isNewText = false;
   }else{
