@@ -127,6 +127,10 @@ function changeTxt(){
 
   //Reset the text value inside the input box to nothing
   txtInput.value = '';
+
+  //This forces the main content box to scroll to the bottom of the text
+  mainContentBox.scrollTop = mainContentBox.scrollHeight;
+
 }
 
 
@@ -137,8 +141,6 @@ function formatText(txt) {
   let lines = unformattedText.split('\n');
   let linesText = '';
   let formattedText = [];
-
-  // console.log(lines);
   
   //Adding line breaks so that the text isn't just a single block.
   if(lines.length != 1){
@@ -183,7 +185,7 @@ txtInput.addEventListener('click', ()=> {
     mainContentBox.style.maxHeight = "calc(100% - 140px)";
     txtInput.focus();
     //For testing only
-    console.log('Click');
+    // console.log('Click');
   }
 })
 
@@ -194,6 +196,7 @@ txtInput.addEventListener('blur', ()=>{
   }
 })
 
+//This checks to see if there is overflow in the main content and returns either true or false.
 function isOverflow(x){
   return x.scrollHeight > x.clientHeight;
 }
