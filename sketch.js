@@ -116,7 +116,12 @@ function changeTxt(){
   
   //Checks to see if there is anything in the input, if not then it doesn't do anything
   if(input != ''){
+    if(content.innerHTML == ''){
+      content.innerHTML = '>'  + input + '<br>';
+    }else{
     content.innerHTML = content.innerHTML + '<br>> ' + input + '<br>';
+    }
+    
     //This takes the input and sends it to the check input function 
     input = input.toUpperCase();
     checkCommand(input);
