@@ -187,7 +187,6 @@ function checkCommand(txt) {
   execute = false;
 
   for(i=0; i<commandsList.length; i++){
-    console.log('Checking for: '+ commandsList[i]);
     if(commandsList[i] == txt){
       let currentFunction=commandsList[i];
       this[currentFunction]();
@@ -229,8 +228,7 @@ function isOverflow(x){
 //These are the list of commands available. There's probably an easier way of doing this.
 
 function HELLO(){
-  console.log('Testing Command');
-  textToChange = "Hi";
+  textToChange = 'Hi';
 }
 
 function SAMPLE(){
