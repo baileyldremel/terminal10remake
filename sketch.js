@@ -132,7 +132,7 @@ function changeTxt(){
     if(content.innerHTML == ''){
       content.innerHTML = '>'  + input + '<br>';
     }else{
-    content.innerHTML = content.innerHTML + '<br>> ' + input + '<br>';
+      content.innerHTML = content.innerHTML + '<br>> ' + input + '<br>';
     }
     
     //This takes the input and sends it to the check input function 
