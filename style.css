@@ -104,6 +104,10 @@ header{
   overflow-wrap: break-word;
 }
 
+.mainTxt p{
+  font-size: 24px;
+}
+
 /* The container which houses the text field and the button */
 .inputField{
   /* Flex box stuff */
