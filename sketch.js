@@ -12,6 +12,8 @@ let currentWordCount = 0;
 
 let execute = false;
 
+let introPlayed = false;
+
 let wordSpeed = 2;
 
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
@@ -43,6 +45,17 @@ function draw(){
   if(!isOverflow(mainContentBox)){
     mainContentBox.style.flexDirection = 'column';
   }
+
+
+  //Intro text
+  if(!introPlayed){
+    content.innerHTML = '';
+    textToChange = `Welcome to Terminal 10, a interactive typeface sampler!
+    Please enter a command to continue.`;
+    isNewText = true;
+    introPlayed = true;
+  }
+
   if(isNewText){
 
     //This checks if there is anything in the split text variable. If not, then we split the text
