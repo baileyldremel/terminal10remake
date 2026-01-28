@@ -1,7 +1,7 @@
 const txtInput = document.getElementById('txtInput');
 const content = document.getElementById('content');
 const mainContentBox = document.getElementById('mainContentBox');
-const commandsList = ['HELLO', 'CLEAR', 'SAMPLE'];
+const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'SIZEDOWN'];
 let input;
 let isMobile = false;
 let isNewText = false;
@@ -222,4 +222,9 @@ function SAMPLE(){
 function CLEAR(){
   content.innerHTML = '';
   isNewText = false;
+}
+
+function SIZEDOWN(){
+  content.style.fontSize = '16px';
+  textToChange = 'Font resized to 16px';
 }
