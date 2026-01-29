@@ -1,8 +1,8 @@
-const txtInput = document.getElementById('txtInput');
-const content = document.getElementById('content');
-const mainContentBox = document.getElementById('mainContentBox');
-const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'SIZEDOWN'];
-let input;
+const formInput = document.getElementById('txtInput');
+const textContent = document.getElementById('content');
+const mainContentDiv = document.getElementById('mainContentBox');
+const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'FONTSIZE'];
+let textInput;
 let isMobile = false;
 let isNewText = false;
 let textSplitIntoWords = [];
@@ -10,11 +10,14 @@ let textToChange, previousText;
 let remainingWords = 0;
 let currentWordCount = 0;
 
-let execute = false;
+let isValidCommand = false;
 
-let introPlayed = false;
+let hasIntroPlayed = false;
 
 let wordSpeed = 2;
+
+let isAwaitingUserInput = false;
+let awaitingCommand;
 
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
 Nunc finibus nec lectus in cursus. Quisque at nibh eu sem efficitur vestibulum eu in tellus. Morbi eget ligula quam. Ut bibendum interdum nunc, nec varius nibh malesuada ac. Proin tortor eros, commodo vitae nunc a, blandit finibus felis. Maecenas ipsum ex, lacinia eget leo eu, sollicitudin vulputate libero. Duis porttitor id nibh sed egestas. Phasellus ultrices ut erat non placerat. Integer arcu nisl, porttitor ac ante sit amet, efficitur ultrices mi. Nullam tincidunt cursus varius. Duis eleifend varius ipsum et consequat. Donec et est id justo tempus semper eu eu libero.
@@ -30,7 +33,7 @@ if(window.matchMedia("(any-hover:none)").matches){
 function setup() {
 
   noCanvas();
-  txtInput.focus();
+  formInput.focus();
 
 }
 
@@ -38,22 +41,22 @@ function draw(){
 
   background(0);
   
-  if(isOverflow(mainContentBox)){
-    mainContentBox.style.flexDirection = 'column-reverse';
+  if(isOverflow(mainContentDiv)){
+    mainContentDiv.style.flexDirection = 'column-reverse';
   }
 
-  if(!isOverflow(mainContentBox)){
-    mainContentBox.style.flexDirection = 'column';
+  if(!isOverflow(mainContentDiv)){
+    mainContentDiv.style.flexDirection = 'column';
   }
 
 
   //Intro text
-  if(!introPlayed){
-    content.innerHTML = '';
+  if(!hasIntroPlayed){
+    textContent.innerHTML = '';
     textToChange = `Welcome to Terminal 10, a interactive typeface sampler!
     Please enter a command to continue.`;
     isNewText = true;
-    introPlayed = true;
+    hasIntroPlayed = true;
   }
 
   if(isNewText){
@@ -65,13 +68,13 @@ function draw(){
     }
     
     //Grabbing the previous text before we make any changes.
-    previousText = content.innerHTML;
+    previousText = textContent.innerHTML;
 
     //Checks if the current word count is not the same as the amount of words in the text
     if(currentWordCount != textSplitIntoWords.length){
 
       if (frameCount>wordSpeed*currentWordCount){
-        content.innerHTML = previousText + ' ' + textSplitIntoWords[currentWordCount];
+        textContent.innerHTML = previousText + ' ' + textSplitIntoWords[currentWordCount];
         currentWordCount++;
       }
 
@@ -90,7 +93,7 @@ function draw(){
 document.querySelector('form').addEventListener('submit', ()=>{
   event.preventDefault();
   if(isMobile){
-    txtInput.blur();
+    formInput.blur();
   }
 })
 
@@ -106,8 +109,8 @@ function changeTxt(){
     
     //Loops through until all the words are printed
     for(i = 0; i<remainingWords; i++){
-      content.innerHTML = previousText + ' ' + textSplitIntoWords[i+currentWordCount];
-      previousText = content.innerHTML;
+      textContent.innerHTML = previousText + ' ' + textSplitIntoWords[i+currentWordCount];
+      previousText = textContent.innerHTML;
     }
     
     //Resets all the variables back to what would happen when the text was fully written.
@@ -117,40 +120,46 @@ function changeTxt(){
   }
 
   //Gets the text that was inputted into the input box
-  input = txtInput.value;
+  textInput = formInput.value;
   
   isNewText = true;
   frameCount = 0;
 
   //If the browser is not a mobile device, we focus back on the keyboard so the user can type again
   if(!isMobile){
-    txtInput.focus();
+    formInput.focus();
   }
   
   //Checks to see if there is anything in the input, if not then it doesn't do anything
-  if(input != ''){
-    if(content.innerHTML == ''){
-      content.innerHTML = '>'  + input + '<br>';
+  if(textInput != ''){
+    if(textContent.innerHTML == ''){
+      textContent.innerHTML = '>'  + textInput + '<br>';
     }else{
-      content.innerHTML = content.innerHTML + '<br>> ' + input + '<br>';
+      textContent.innerHTML = textContent.innerHTML + '<br>> ' + textInput + '<br>';
     }
     
-    //This takes the input and sends it to the check input function 
-    input = input.toUpperCase();
-    checkCommand(input);
+    //This takes the input and sends it to the check input function
     
-    // For testing
+
+    //This checks to see if something is waiting for user input, in which it will run the command that is waiting for user input
+    if(isAwaitingUserInput){
+      checkCommand(awaitingCommand);
+    }else{
+      textInput = textInput.toUpperCase();
+      checkCommand(textInput);
+    }
+  
   }else{
     //If blank, prompt user to enter text
-    content.innerHTML = content.innerHTML + '<br>';
+    textContent.innerHTML = textContent.innerHTML + '<br>';
     textToChange = 'ERROR: Please enter text to continue'
   }
 
   //Reset the text value inside the input box to nothing
-  txtInput.value = '';
+  formInput.value = '';
 
   //This forces the main content box to scroll to the bottom of the text
-  mainContentBox.scrollTop = mainContentBox.scrollHeight;
+  mainContentDiv.scrollTop = mainContentDiv.scrollHeight;
 
 }
 
@@ -184,37 +193,42 @@ function formatText(txt) {
 function checkCommand(txt) {
 
   console.log(txt);
-  execute = false;
+  isValidCommand = false;
 
-  for(i=0; i<commandsList.length; i++){
-    if(commandsList[i] == txt){
-      let currentFunction=commandsList[i];
-      this[currentFunction]();
-      execute = true;
-      break;
+  if(isAwaitingUserInput){
+    this[awaitingCommand]();
+  }else{
+    for(i=0; i<commandsList.length; i++){
+      if(commandsList[i] == txt){
+        let currentFunction=commandsList[i];
+        this[currentFunction]();
+        isValidCommand = true;
+        break;
+      }
+    }
+    if(!isValidCommand){
+      textToChange = 'No command found, please try again';
     }
   }
-  if(!execute){
-    textToChange = 'No command found, please try again';
-  }
+  
 }
 
 //When the keyboard on the mobile screen is active, we make a slight adjustment to the mainContent box.
 
-txtInput.addEventListener('click', ()=> {
+formInput.addEventListener('click', ()=> {
   
   if(isMobile){
-    mainContentBox.style.maxHeight = "calc(100% - 140px)";
-    txtInput.focus();
+    mainContentDiv.style.maxHeight = "calc(100% - 140px)";
+    formInput.focus();
     //For testing only
     // console.log('Click');
   }
 })
 
-txtInput.addEventListener('blur', ()=>{
+formInput.addEventListener('blur', ()=>{
   if(isMobile){
     //With no value, this resets to the default in the CSS.
-    mainContentBox.style.maxHeight = "";
+    mainContentDiv.style.maxHeight = "";
   }
 })
 
@@ -236,11 +250,57 @@ function SAMPLE(){
 }
 
 function CLEAR(){
-  content.innerHTML = '';
+  textContent.innerHTML = '';
   isNewText = false;
 }
 
-function SIZEDOWN(){
-  content.style.fontSize = '16px';
-  textToChange = 'Font resized to 16px';
+
+//This function is taking user input and making the font size what the user wants
+function FONTSIZE(){
+
+  //There is a check to see if we are already waiting for an input to change the font size
+  if(isAwaitingUserInput){
+    
+    //Converts the text into an integer. This also rounds it if the user enters a decimal/float
+    textInput = parseInt(textInput);
+
+    //Checks to see if the input is a integer
+    if(Number.isInteger(textInput)){
+
+      //There are limits to what can be displayed. This is just some random numbers
+      if(textInput < 8 || textInput > 124){
+        if(textInput < 8){
+          textToChange = 'Input too small, please try again';
+        }
+        if(textInput > 124){
+          textToChange = 'Input too big, please try again';
+        }
+      }else{
+
+        //Converts the integer back into a string so it can be used to change the font size of the text content box
+        textInput = textInput.toString() + 'px';
+
+        //Changes the font size to what the user inputs
+        textContent.style.fontSize = textInput;
+
+        //Prints a message on success
+        textToChange = 'Font size changed to '+ textInput;
+
+        //Since we successfully completed the function, we are no longer waiting for user input, so we reset
+        isAwaitingUserInput = false;
+      }
+    }else{
+
+      //This tells the user what was entered is not an integer
+      textToChange = 'Input is not a integer, please try again';
+    }
+
+  //This will run when the command is initally called, prompting the user for input.
+  //This also sets the waiting command so the user doesn't have to enter it again.
+  }else{
+    textToChange = 'Please enter font size between 8px and 124px you wish to change the text to. Please note decimals will round to the nearest whole number';
+    awaitingCommand = 'FONTSIZE';
+    isAwaitingUserInput = true;
+  }
+  
 }
