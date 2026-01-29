@@ -1,7 +1,7 @@
 const formInput = document.getElementById('txtInput');
 const textContent = document.getElementById('content');
 const mainContentDiv = document.getElementById('mainContentBox');
-const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'FONTSIZE'];
+const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'FONTSIZE', 'USER'];
 let textInput;
 let isMobile = false;
 let isNewText = false;
@@ -18,6 +18,9 @@ let wordSpeed = 2;
 
 let isAwaitingUserInput = false;
 let awaitingCommand;
+
+
+let username = 'user';
 
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
 Nunc finibus nec lectus in cursus. Quisque at nibh eu sem efficitur vestibulum eu in tellus. Morbi eget ligula quam. Ut bibendum interdum nunc, nec varius nibh malesuada ac. Proin tortor eros, commodo vitae nunc a, blandit finibus felis. Maecenas ipsum ex, lacinia eget leo eu, sollicitudin vulputate libero. Duis porttitor id nibh sed egestas. Phasellus ultrices ut erat non placerat. Integer arcu nisl, porttitor ac ante sit amet, efficitur ultrices mi. Nullam tincidunt cursus varius. Duis eleifend varius ipsum et consequat. Donec et est id justo tempus semper eu eu libero.
@@ -133,9 +136,9 @@ function changeTxt(){
   //Checks to see if there is anything in the input, if not then it doesn't do anything
   if(textInput != ''){
     if(textContent.innerHTML == ''){
-      textContent.innerHTML = '>'  + textInput + '<br>';
+      textContent.innerHTML = username + ' >'  + textInput + '<br>';
     }else{
-      textContent.innerHTML = textContent.innerHTML + '<br>> ' + textInput + '<br>';
+      textContent.innerHTML = textContent.innerHTML + '<br>'+username+' > ' + textInput + '<br>';
     }
     
     //This takes the input and sends it to the check input function
@@ -252,6 +255,18 @@ function SAMPLE(){
 function CLEAR(){
   textContent.innerHTML = '';
   isNewText = false;
+}
+
+function USER(){
+  if(isAwaitingUserInput){
+    username = textInput;
+    textToChange = 'Hello, ' + username;
+    isAwaitingUserInput = false;
+  }else{
+    textToChange = 'Please enter a username';
+    awaitingCommand = 'USER';
+    isAwaitingUserInput = true;
+  }
 }
 
 
