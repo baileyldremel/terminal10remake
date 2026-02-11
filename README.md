@@ -44,7 +44,7 @@ The bones of the project are built and ready to go, but there is still a way to 
 
 Here are some of the things I wish to implement:
 
-- The ability for users to change elements through their input, such as changing the font size by entering numbers.
-- A command list that can be accessed via a command or through a item in the menu bar.
+- ~~The ability for users to change elements through their input, such as changing the font size by entering numbers.~~ [DONE as of 29/01](https://github.com/baileyldremel/terminal10remake/commit/f94647fe767994b0cd6ebc72b0d3713748120550)
+- ~~A command list that can be accessed via a command or through a item in the menu bar.~~ [DONE as of 11/02](https://github.com/baileyldremel/terminal10remake/commit/fa43d621ae174cd4bc3f21d60e1b515804dec211)
 - Sound effects, which were included in the previous version of Terminal-10.
 - A new typeface to go along with the updated sampler
