@@ -1,6 +1,7 @@
 const formInput = document.getElementById('txtInput');
 const textContent = document.getElementById('content');
 const mainContentDiv = document.getElementById('mainContentBox');
+const commandsListElement = document.getElementById('commandsList');
 const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'FONTSIZE', 'USER'];
 let textInput;
 let isMobile = false;
@@ -55,6 +56,12 @@ function draw(){
 
   //Intro text
   if(!hasIntroPlayed){
+    
+    //Fills the commands list dropdown with the commands. Easier than manually typing them in.
+    for(i=0; i<commandsList.length; i++){
+      commandsListElement.innerHTML += "<li><a onclick=\"clickedCommand("+i+")\">"+commandsList[i]+"</a></li>";
+    }
+
     textContent.innerHTML = '';
     textToChange = `Welcome to Terminal 10, a interactive typeface sampler!
     Please enter a command to continue.`;
@@ -99,6 +106,13 @@ document.querySelector('form').addEventListener('submit', ()=>{
     formInput.blur();
   }
 })
+
+//This function allows for users to click a command in the commands list to enter the command
+function clickedCommand(cmd){
+  console.log(cmd);
+  formInput.value =  commandsList[cmd];
+  changeTxt();
+}
 
 
 function changeTxt(){
