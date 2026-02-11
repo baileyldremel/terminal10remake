@@ -4,6 +4,11 @@ const mainContentDiv = document.getElementById('mainContentBox');
 const commandsListElement = document.getElementById('commandsList');
 const commandsList = ['HELP', 'COMMANDS', 'CLEAR', 'SAMPLE', 'FONTSIZE', 'USER', 'RESET'];
 const commandsDescription = ['Instructions on how to use the sampler', 'A list of commands', 'Clears the terminal of all text', 'Provides a sample of text', 'Allows user to change of size', 'Allows user to set their username', 'Resets font size'];
+
+let previousInputs = [];
+let previousInputNumber = 0;
+let previousInputCycle = 0;
+
 let textInput;
 let isMobile = false;
 let isNewText = false;
@@ -117,7 +122,7 @@ function clickedCommand(cmd){
 
 
 function changeTxt(){
-  
+  previousInputCycle = 0;
   //This is a failsafe in case the user enters something into the text box before all the text has been written.
   //This will just print the remaining words left.
   if(isNewText){
@@ -150,6 +155,7 @@ function changeTxt(){
   
   //Checks to see if there is anything in the input, if not then it doesn't do anything
   if(textInput != ''){
+    previousInputs.push(textInput);
     if(textContent.innerHTML == ''){
       textContent.innerHTML = username + ' >'  + textInput + '<br>';
     }else{
@@ -249,6 +255,29 @@ formInput.addEventListener('blur', ()=>{
     mainContentDiv.style.maxHeight = "";
   }
 })
+
+
+//Added ability to quickly pull previous commands (only works on desktop);
+function keyPressed(){
+
+  if(key == UP_ARROW){
+    formInput.focus();
+    if(previousInputs != [] && previousInputCycle != previousInputs.length){
+      previousInputNumber = previousInputs.length-1-previousInputCycle;
+      formInput.value = previousInputs[previousInputNumber];
+      previousInputCycle++;
+    }
+  }
+  
+  if(key == DOWN_ARROW){
+    formInput.focus();
+    if(previousInputs != [] && previousInputCycle > 1){
+      previousInputNumber = previousInputs.length+1-previousInputCycle;
+      formInput.value = previousInputs[previousInputNumber];
+      previousInputCycle = previousInputCycle-1;
+    }
+  }
+}
 
 //This checks to see if there is overflow in the main content and returns either true or false.
 function isOverflow(x){
