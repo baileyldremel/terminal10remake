@@ -178,9 +178,9 @@ function changeTxt(){
   if(textInput != ''){
     previousInputs.push(textInput);
     if(textContent.innerHTML == ''){
-      textContent.innerHTML = username + ' >'  + textInput + '<br>';
+      textContent.innerHTML = '@' + username + ' >'  + textInput + '<br>';
     }else{
-      textContent.innerHTML = textContent.innerHTML + '<br>'+username+' > ' + textInput + '<br>';
+      textContent.innerHTML = textContent.innerHTML + '<br>@'+username+' > ' + textInput + '<br>';
     }
     
     //This takes the input and sends it to the check input function
