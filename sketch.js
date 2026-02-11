@@ -2,7 +2,8 @@ const formInput = document.getElementById('txtInput');
 const textContent = document.getElementById('content');
 const mainContentDiv = document.getElementById('mainContentBox');
 const commandsListElement = document.getElementById('commandsList');
-const commandsList = ['HELLO', 'CLEAR', 'SAMPLE', 'FONTSIZE', 'USER'];
+const commandsList = ['HELP', 'COMMANDS', 'CLEAR', 'SAMPLE', 'FONTSIZE', 'USER', 'RESET'];
+const commandsDescription = ['Instructions on how to use the sampler', 'A list of commands', 'Clears the terminal of all text', 'Provides a sample of text', 'Allows user to change of size', 'Allows user to set their username', 'Resets font size'];
 let textInput;
 let isMobile = false;
 let isNewText = false;
@@ -258,8 +259,13 @@ function isOverflow(x){
 
 //These are the list of commands available. There's probably an easier way of doing this.
 
-function HELLO(){
-  textToChange = 'Hi';
+function HELP(){
+  textToChange = `Terminal 10 is an interactive typeface sampler meant to mimic entering terminal inputs.
+  Select the text input field below to enter any text. If you wish to enter a command, simply type it in or select it from the COMMANDS dropdown.
+  If a command is valid, the text will update accordingly
+  If a command does not exist, please check spelling and try again
+  If nothing was entered into the input, an error will occur
+  To get started, type in 'COMMANDS' to see a list of commands, or check the COMMANDS dropdown.`;
 }
 
 function SAMPLE(){
@@ -332,4 +338,17 @@ function FONTSIZE(){
     isAwaitingUserInput = true;
   }
   
+}
+
+function COMMANDS(){
+  textToChange = 'Please see below for a list of valid commands with a brief description:'
+  for(i=0; i<commandsList.length; i++){
+    textToChange += '<br>> ' + commandsList[i]+ ': '+ commandsDescription[i];
+  }
+  textToChange += '<br>Note: Input are not case sensitive.'
+}
+
+function RESET(){
+  textContent.style.fontSize = '24px';
+  textToChange = 'Font size has been reset to 24px';
 }
