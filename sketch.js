@@ -1,34 +1,54 @@
+//Constant variables for elements in HTML
 const formInput = document.getElementById('txtInput');
 const textContent = document.getElementById('content');
 const mainContentDiv = document.getElementById('mainContentBox');
 const commandsListElement = document.getElementById('commandsList');
+
+//Commands list related lists
 const commandsList = ['HELP', 'COMMANDS', 'CLEAR', 'SAMPLE', 'FONTSIZE', 'USER', 'RESET'];
 const commandsDescription = ['Instructions on how to use the sampler', 'A list of commands', 'Clears the terminal of all text', 'Provides a sample of text', 'Allows user to change of size', 'Allows user to set their username', 'Resets font size'];
 
+//Values for calling the previous inputs entered by the user
 let previousInputs = [];
 let previousInputNumber = 0;
 let previousInputCycle = 0;
 
+//Empty variable that is used to pull the text inputted in the form
 let textInput;
+
+//Boolean for checking mobile
 let isMobile = false;
+
+//Boolean for checking if there is new text
 let isNewText = false;
+
+//List for use splitting words
 let textSplitIntoWords = [];
+
+//Varaibles for what the previous text was and the new text
 let textToChange, previousText;
+
+//Variables for use when user enters a command before the previous text has finished writing
 let remainingWords = 0;
 let currentWordCount = 0;
 
+//Boolean for checking valid commands
 let isValidCommand = false;
 
+//Boolean for checking if the intro has played
 let hasIntroPlayed = false;
 
+//Variable controlling word speed
 let wordSpeed = 2;
 
+//Variables for commands that require user input
 let isAwaitingUserInput = false;
 let awaitingCommand;
 
-
+//Username variable
 let username = 'user';
 
+//Very long text
 let veryLongText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales luctus urna scelerisque lacinia. Phasellus luctus consequat erat, vitae tincidunt libero sollicitudin commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla iaculis felis tortor, vel placerat dolor aliquet vitae. Curabitur feugiat nunc metus, in venenatis est varius vel. Fusce a purus consequat, condimentum nibh non, venenatis dui. Proin quis porttitor sapien. Nulla gravida pellentesque vehicula. Aenean tincidunt mattis enim non dapibus. Suspendisse potenti. Suspendisse potenti.
 Nunc finibus nec lectus in cursus. Quisque at nibh eu sem efficitur vestibulum eu in tellus. Morbi eget ligula quam. Ut bibendum interdum nunc, nec varius nibh malesuada ac. Proin tortor eros, commodo vitae nunc a, blandit finibus felis. Maecenas ipsum ex, lacinia eget leo eu, sollicitudin vulputate libero. Duis porttitor id nibh sed egestas. Phasellus ultrices ut erat non placerat. Integer arcu nisl, porttitor ac ante sit amet, efficitur ultrices mi. Nullam tincidunt cursus varius. Duis eleifend varius ipsum et consequat. Donec et est id justo tempus semper eu eu libero.
 Mauris porta vestibulum tincidunt. Vestibulum porttitor dapibus neque ut imperdiet. Nulla lectus ligula, scelerisque non dignissim ut, eleifend sed elit. In sodales sagittis ullamcorper. Fusce nec tortor laoreet, volutpat sem in, eleifend erat. Sed vel libero tellus. Vestibulum id tristique neque, nec vulputate enim. Cras vel mollis felis. Nullam ut aliquam turpis. Ut id turpis laoreet, congue lectus nec, dictum urna. Proin malesuada nisi vitae mi pretium mollis. Nunc fermentum ipsum ex, eu vulputate ante blandit quis. Cras blandit faucibus mi non aliquet. Nunc et justo faucibus, sollicitudin tortor rutrum, gravida turpis.
@@ -51,14 +71,16 @@ function draw(){
 
   background(0);
   
+  //These statements dictate how the text appears. 
+  //If it is overflowing, it reverses. This means the text appears from the bottom and pushes upwards.
   if(isOverflow(mainContentDiv)){
     mainContentDiv.style.flexDirection = 'column-reverse';
   }
 
+  //If the main text box isn't overflowing, it prints top down.
   if(!isOverflow(mainContentDiv)){
     mainContentDiv.style.flexDirection = 'column';
   }
-
 
   //Intro text
   if(!hasIntroPlayed){
@@ -96,7 +118,7 @@ function draw(){
 
     }else{
 
-      console.log('Finished');
+      //Once it's done printing, we reset the values;
       currentWordCount = 0;
       textSplitIntoWords = '';
       isNewText = false;
@@ -115,7 +137,6 @@ document.querySelector('form').addEventListener('submit', ()=>{
 
 //This function allows for users to click a command in the commands list to enter the command
 function clickedCommand(cmd){
-  console.log(cmd);
   formInput.value =  commandsList[cmd];
   changeTxt();
 }
@@ -191,6 +212,7 @@ function changeTxt(){
 //Making a function that formats the text to be displayed
 function formatText(txt) {
 
+  //Pulling the text and spliting it lines
   let unformattedText = txt;
   let lines = unformattedText.split('\n');
   let linesText = '';
@@ -216,20 +238,25 @@ function formatText(txt) {
 
 function checkCommand(txt) {
 
-  console.log(txt);
   isValidCommand = false;
 
+  //Checking to see if we are awaiting user input for something. If we are, we run that function instead
   if(isAwaitingUserInput){
     this[awaitingCommand]();
+  //If not, we continue
   }else{
+    //We go through the whole commands list, checking if the input matches a command in the list
     for(i=0; i<commandsList.length; i++){
+      //If so, we let the function run
       if(commandsList[i] == txt){
         let currentFunction=commandsList[i];
         this[currentFunction]();
         isValidCommand = true;
+        //Since we have found a valid command, we break the loop so we don't continue running
         break;
       }
     }
+    //If there is not command found, we let the user know
     if(!isValidCommand){
       textToChange = 'No command found, please try again';
     }
@@ -244,14 +271,11 @@ formInput.addEventListener('click', ()=> {
   if(isMobile){
     mainContentDiv.style.maxHeight = "calc(100% - 140px)";
     formInput.focus();
-    //For testing only
-    // console.log('Click');
   }
 })
 
 formInput.addEventListener('blur', ()=>{
   if(isMobile){
-    //With no value, this resets to the default in the CSS.
     mainContentDiv.style.maxHeight = "";
   }
 })
@@ -262,18 +286,26 @@ function keyPressed(){
 
   if(key == UP_ARROW){
     formInput.focus();
+    //If there is something in the previous inputs field and the cycled item isn't the same as the length
     if(previousInputs != [] && previousInputCycle != previousInputs.length){
+      //Set the number as the length of the list minus 1 and the current cycled number
       previousInputNumber = previousInputs.length-1-previousInputCycle;
+      //Set the form value to the previous input
       formInput.value = previousInputs[previousInputNumber];
+      //Add 1
       previousInputCycle++;
     }
   }
   
   if(key == DOWN_ARROW){
     formInput.focus();
+    //Very similar to above, but we are checking if the previous cycled number is greater than 1;
     if(previousInputs != [] && previousInputCycle > 1){
+      //Set the number as the length plus 1 but minus the current cycled number
       previousInputNumber = previousInputs.length+1-previousInputCycle;
+      //Set the form value to the cycled to input
       formInput.value = previousInputs[previousInputNumber];
+      //Minus 1
       previousInputCycle = previousInputCycle-1;
     }
   }
@@ -370,14 +402,17 @@ function FONTSIZE(){
   
 }
 
+//Function to display all the commands plus a little description
 function COMMANDS(){
   textToChange = 'Please see below for a list of valid commands with a brief description:'
+  //Instead of manually writing them, we call the lists we created for the commands and the descriptions. Quicker than manually doing it
   for(i=0; i<commandsList.length; i++){
     textToChange += '<br>> ' + commandsList[i]+ ': '+ commandsDescription[i];
   }
   textToChange += '<br>Note: Input are not case sensitive.'
 }
 
+// Resets font size to 24px, the default value. Will be expanded upon.
 function RESET(){
   textContent.style.fontSize = '24px';
   textToChange = 'Font size has been reset to 24px';
