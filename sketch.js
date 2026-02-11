@@ -323,10 +323,13 @@ function isOverflow(x){
 function HELP(){
   textToChange = `Terminal 10 is an interactive typeface sampler meant to mimic entering terminal inputs.
   Select the text input field below to enter any text. If you wish to enter a command, simply type it in or select it from the COMMANDS dropdown.
-  If a command is valid, the text will update accordingly
-  If a command does not exist, please check spelling and try again
-  If nothing was entered into the input, an error will occur
-  To get started, type in 'COMMANDS' to see a list of commands, or check the COMMANDS dropdown.`;
+  If a command is valid, the text will update accordingly.
+  If a command does not exist, please check spelling and try again.
+  If nothing was entered into the input, an error will occur.`
+  if(!isMobile){
+    textToChange = textToChange + '<br>Pressing the up or down arrows will cycle through previous text inputs.';
+  }
+  textToChange = textToChange + '<br>To get started, type in \'COMMANDS\' to see a list of commands, or check the COMMANDS dropdown.';
 }
 
 function SAMPLE(){
