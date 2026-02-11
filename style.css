@@ -152,7 +152,6 @@ a:hover{
 }
 
 .commandsList{
-  display: none;
   position: absolute;
   text-align: right;
   width: max-content;
@@ -161,6 +160,10 @@ a:hover{
   background-color: #000000;
   border-radius: 10px;
   padding: 5px;
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
 }
 
 .commandsListButton button{
@@ -170,9 +173,18 @@ a:hover{
 }
 
 .commandsListButton:hover .commandsList{
-  display: block;
+  opacity: 1;
+  visibility: visible;
   min-width: 100%;
 }
+
+.commandsListButton:hover button {
+  background-color:#008800;
+  border: solid #008800;
+  color:#ffffff;
+}
+
+
 
 @container (width > 200px){
   .commandsList{
