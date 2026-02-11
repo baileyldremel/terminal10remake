@@ -65,7 +65,7 @@ function draw(){
 
     textContent.innerHTML = '';
     textToChange = `Welcome to Terminal 10, a interactive typeface sampler!
-    Please enter a command to continue.`;
+    Please enter a command to continue or type in HELP for instructions.`;
     isNewText = true;
     hasIntroPlayed = true;
   }
@@ -277,6 +277,7 @@ function CLEAR(){
   isNewText = false;
 }
 
+//Function to allow a user to set their username
 function USER(){
   if(isAwaitingUserInput){
     username = textInput;
@@ -305,10 +306,10 @@ function FONTSIZE(){
       //There are limits to what can be displayed. This is just some random numbers
       if(textInput < 8 || textInput > 124){
         if(textInput < 8){
-          textToChange = 'Input too small, please try again';
+          textToChange = 'ERROR: Input too small, please try again';
         }
         if(textInput > 124){
-          textToChange = 'Input too big, please try again';
+          textToChange = 'ERROR: Input too big, please try again';
         }
       }else{
 
@@ -327,7 +328,7 @@ function FONTSIZE(){
     }else{
 
       //This tells the user what was entered is not an integer
-      textToChange = 'Input is not a integer, please try again';
+      textToChange = 'ERROR: Input is not a integer, please try again';
     }
 
   //This will run when the command is initally called, prompting the user for input.
