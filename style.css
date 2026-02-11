@@ -7,13 +7,13 @@
 /* Setting the main stuff for the website such as font, background colour and overflow */
 *{
   font-family: 'Terminal10';
-   background-color: #000000;
-   font-size: 24px;
+  font-size: 24px;
 
 }
 
 
 html, body {
+  background-color: #000000;
   margin: 0;
   padding: 0;
 }
@@ -76,14 +76,25 @@ footer{
 header{
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background-color: #000000;
   padding: 0 10px;
-  border: solid #ffffff;
+  border: solid 2px #ffffff;
   border-radius: 5px;
   z-index: 0;
   margin:5px;
+}
+
+ul{
+  list-style-type: none;
+  padding-inline-start: 0;
+  margin: 0;
+}
+
+li{
+  padding: 5px 1px;
+  color: #00ff00
 }
 
 .headerItem{
@@ -127,6 +138,43 @@ header{
   overflow:hidden;
 }
 
+.commandsListDropdown{
+  position: relative;
+  display: inline-block;
+}
+
+.commandsListButton{
+  min-width:100%;
+}
+
+.commandsList{
+  display: none;
+  position: absolute;
+  text-align: right;
+  width: max-content;
+  right: 0;
+  border: solid 2px white;
+  background-color: #000000;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.commandsListButton button{
+  min-width: 100%;
+  padding: 0 5px;
+  margin: 0;
+}
+
+.commandsListButton:hover .commandsList{
+  display: block;
+  min-width: 100%;
+}
+
+@container (width > 200px){
+  .commandsList{
+    font-size: 1vw;
+  }
+}
 
 @media only screen and (max-width: 600px) and (any-hover: none){
 
